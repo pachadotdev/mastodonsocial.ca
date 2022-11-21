@@ -35,5 +35,9 @@ su mastodon
 cd /home/live/mastodon
 git fetch && git checkout v4.0.0
 rbenv install 3.0.4
-bundle install
+bundle install && yarn install
+git fetch && git checkout v4.0.2
+bundle install && yarn install
+exit
+reboot
 ```

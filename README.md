@@ -26,9 +26,9 @@ Pacha
 
 ## 2022-11-21
 
-I found https://github.com/mastodon/mastodon/releases/tag/v4.0.0 but `bundle install` doesn't work, so I completed the next steps based on the previous link and https://fedi.dev/gytis/update-mastodon-server-instance.
-
 To be cautious, I created a snapshot of the droplet before, to avoid losing the existing accounts. All the images and assets are in S3.
+
+I found https://github.com/mastodon/mastodon/releases/tag/v4.0.0 but `bundle install` doesn't work, so I completed the next steps based on the previous link and https://fedi.dev/gytis/update-mastodon-server-instance.
 
 ```bash
 su mastodon
@@ -41,3 +41,6 @@ bundle install && yarn install
 exit
 reboot
 ```
+
+This didn't work, so I restored from the snapshot.
+

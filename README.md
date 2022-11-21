@@ -23,3 +23,17 @@ Pacha
 * I opted for rebuilding the image, a DB restoration didn't work, so I restored a 2nd time and started from zero.
 * Sudomarch recommends this based on his own experience "Reinstall 3.5.x, restore your db, and then do the upgrade to 4.0.0, and THEN 4.0.2. That's what worked for me." (https://www.reddit.com/r/Mastodon/comments/yxjvea/no_web_view_after_updating_to_402/)
 * I'll postpone updates until it's necessary to keep connected to mastodon.
+
+## 2022-11-21
+
+I found https://github.com/mastodon/mastodon/releases/tag/v4.0.0 but `bundle install` doesn't work, so I completed the next steps based on the previous link and https://fedi.dev/gytis/update-mastodon-server-instance.
+
+To be cautious, I created a snapshot of the droplet before, to avoid losing the existing accounts. All the images and assets are in S3.
+
+```bash
+su mastodon
+cd /home/live/mastodon
+git fetch && git checkout v4.0.0
+rbenv install 3.0.4
+bundle install
+```

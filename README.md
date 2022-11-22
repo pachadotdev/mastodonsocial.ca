@@ -30,17 +30,37 @@ To be cautious, I created a snapshot of the droplet before, to avoid losing the 
 
 I found https://github.com/mastodon/mastodon/releases/tag/v4.0.0 but `bundle install` doesn't work, so I completed the next steps based on the previous link and https://fedi.dev/gytis/update-mastodon-server-instance.
 
+Update 3.5.3 to 4.0.0
+
 ```bash
+systemctl stop mastodon*
 su mastodon
-cd /home/live/mastodon
+cd /home/mastodon/live
 git fetch && git checkout v4.0.0
-rbenv install 3.0.4
+nano .ruby-version
 bundle install && yarn install
-git fetch && git checkout v4.0.2
-bundle install && yarn install
+SKIP_POST_DEPLOYMENT_MIGRATIONS=true RAILS_ENV=production bundle exec rails db:migrate
+RAILS_ENV=production bundle exec rails assets:precompile
 exit
-reboot
+systemctl start mastodon-sidekiq.service 
+systemctl start mastodon-streaming.service 
+systemctl start mastodon-web.service
+su mastodon
+cd /home/mastodon/live/
+RAILS_ENV=production bundle exec rails db:migrate
+exit
 ```
 
-This didn't work, so I restored from the snapshot.
+Update 4.0.0 to 4.0.2
 
+```bash
+su mastodon
+cd /home/mastodon/live
+git fetch && git checkout v4.0.2
+bundle install
+RAILS_ENV=production bundle exec rails assets:precompile
+exit
+systemctl start mastodon-sidekiq.service 
+systemctl start mastodon-streaming.service 
+systemctl start mastodon-web.service
+```

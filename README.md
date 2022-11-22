@@ -50,17 +50,3 @@ cd /home/mastodon/live/
 RAILS_ENV=production bundle exec rails db:migrate
 exit
 ```
-
-Update 4.0.0 to 4.0.2
-
-```bash
-su mastodon
-cd /home/mastodon/live
-git fetch && git checkout v4.0.2
-bundle install
-RAILS_ENV=production bundle exec rails assets:precompile
-exit
-systemctl start mastodon-sidekiq.service 
-systemctl start mastodon-streaming.service 
-systemctl start mastodon-web.service
-```

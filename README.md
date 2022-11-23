@@ -30,6 +30,7 @@ I found https://github.com/mastodon/mastodon/releases/tag/v4.0.0 but `bundle ins
 Update 3.5.3 to 4.0.0
 
 ```bash
+# After login as root from DO web console
 systemctl stop mastodon*
 su mastodon
 cd /home/mastodon/live
@@ -57,6 +58,7 @@ I realized I needed a swap file or the compilation process fails. Probably we ne
 Update 4.0.0 to 4.0.2
 
 ```bash
+# After login as root from DO web console
 fallocate -l 8G /swapfile
 mkswap /swapfile
 swapon /swapfile

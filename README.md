@@ -47,3 +47,29 @@ cd /home/mastodon/live/
 RAILS_ENV=production bundle exec rails db:migrate
 exit
 ```
+
+# 2022-11-23
+
+To be cautious, I created a snapshot of the droplet before, to avoid losing the existing accounts. All the images and assets are in S3.
+
+I realized I needed a swap file or the compilation process fails. Probably we need less than 8GB for the swap.
+
+Update 4.0.0 to 4.0.2
+
+```bash
+fallocate -l 8G /swapfile
+mkswap /swapfile
+swapon /swapfile
+systemctl stop mastodon*
+su mastodon
+cd /home/mastodon/live/
+git fetch && git checkout v4.0.2
+bundle install
+RAILS_ENV=production bundle exec rails assets:precompile
+exit
+systemctl start mastodon-sidekiq.service 
+systemctl start mastodon-streaming.service 
+systemctl start mastodon-web.service
+swapoff /swapfile
+rm -f /swapfile
+```
